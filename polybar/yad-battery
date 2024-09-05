@@ -1,0 +1,3 @@
+#!/bin/sh
+
+acpi -b | awk -F ": " '{print $NF}' | xargs echo | yad --text-info --undecorated --fixed --close-on-unfocus --no-buttons --fontname="FantasqueSansM Nerd Font 13" --width=200 --height=30 --posx=1523 --posy=41 --borders=0

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+wifi_network=$(nmcli | awk 'NR==1 {print $4}')
+if [ -z "${wifi_network}" ]; then
+	wifi_info="Wi-Fi: Not connected"
+else
+	wifi_info=$(nmcli -f IN-USE,SSID,RATE,BARS device wifi | awk '/^\*/ {print "Connected to: "$2; printf "\n"; print "Speed: "$3" "$4}')
+fi
+
+echo "$wifi_info" | yad --text-info --undecorated --fixed --close-on-unfocus --no-buttons --fontname="FantasqueSansM Nerd Font 13" --width=70 --height=85 --posx=1500 --posy=41 --borders=0

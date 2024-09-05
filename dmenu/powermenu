@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# Taken and modified from: https://github.com/ericmurphyxyz/dotfiles/blob/master/.local/bin/powermenu
+
+chosen=$(printf "  Power Off\n  Restart\n  Lock" | dmenu -x 6 -y 5 -z 1908 -h 44 -p "Power Options:")
+
+case "$chosen" in
+	"  Power Off") loginctl poweroff ;;
+	"  Restart") loginctl reboot ;;
+	"  Lock") betterlockscreen -l dim ;;
+	*) exit 1 ;;
+esac

@@ -1,0 +1,21 @@
+#!/bin/sh
+
+wifi_network=$(nmcli | awk 'NR==1 {print $4}')
+if [ -z "${wifi_network}" ]; then
+	echo "󰤭 "
+elif [ "${wifi_network}" = "to" ]; then
+	echo "..."
+elif [ -n "${wifi_network}" ]; then
+	wifi_speed=$(nmcli -f IN-USE,SIGNAL,SSID device wifi | awk '/^\*/{if (NR!=1) {print $2}}')
+	if [ "$wifi_speed" -eq 100 ]; then
+		echo "󰤨 " 
+	elif [ "$wifi_speed" -ge 75 ] && [ "$wifi_speed" -lt 100 ]; then
+		echo "󰤥 "
+	elif [ "$wifi_speed" -ge 50 ] && [ "$wifi_speed" -lt 75 ]; then
+		echo "󰤢 "
+	elif [ -z "${wifi_network}" ]; then
+		echo "󰤭 "
+	else
+		echo "󰤟 "
+	fi
+fi

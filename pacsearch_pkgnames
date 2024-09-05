@@ -1,0 +1,11 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+my $search = "@ARGV";
+my $output = '';
+
+open(my $pipe,'-|',"pacman -Ss $search") or die "Unable to create pipe to pacman: $!\n";
+while (defined(my $line=<$pipe>)){$output.=$line;}
+close $pipe;
+while($output=~/^(\S.*?\Q$search\E.*?\n(?:\s.*\n)*)/mgi){print $1};

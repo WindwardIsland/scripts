@@ -1,0 +1,11 @@
+#!/bin/sh
+
+box() {
+	title="| $1 |"
+	edge=$(echo "$title" | sed 's/./*/g')
+	printf '%s\n' "$edge"
+	printf '%s\n' "$title"
+	printf '%s' "$edge"
+}
+
+box "bash functions"

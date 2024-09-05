@@ -1,0 +1,3 @@
+#!/bin/sh
+
+yad --calendar --undecorated --fixed --close-on-unfocus --no-buttons --width=222 --height=193 --posx=1676 --posy=57 --borders=0

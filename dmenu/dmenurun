@@ -1,0 +1,4 @@
+#!/bin/sh
+
+dmenuopts="-x 6 -y 5 -z 1908 -h 44"
+dmenu_run -p "Run:" ${dmenuopts}

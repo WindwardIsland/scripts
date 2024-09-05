@@ -1,0 +1,35 @@
+#!/bin/sh
+
+# This is a script for a polybar module which displays the number of updates with the distro logo based on the distribution.
+
+for pkg_mgr in apt pacman dnf xbps-install; do
+	command -v "${pkg_mgr}" > /dev/null 2>&1 || continue
+
+	case ${pkg_mgr} in
+		apt)
+			updates_apt=$(apt list --upgradable 2> /dev/null | grep -c "upgradable");
+			echo "%{F#D05} %{F-} UPDS: $updates_apt"
+			;;
+		pacman)
+			aur_helper() {
+				paru
+			}
+			updates_pacman=$(checkupdates 2> /dev/null | wc -l)			
+			updates_aur=$(paru -Qum 2> /dev/null | wc -l)
+			arch_distro=$(grep -m 1 "ID=" /etc/os-release | sed 's/ID=//')
+			if [ "$arch_distro" = "artix" ]; then
+				echo "%{F#4AB} %{F-} UPDS: $updates_pacman   $updates_aur"
+			else
+				echo "%{F#19C}󰣇 %{F-} UPDS: $updates_pacman   $updates_aur"
+			fi
+			;;
+		dnf)
+			updates_dnf=$(dnf updateinfo -q --list | wc -l)
+			echo "%{F#5AD} %{F-} UPDS: $updates_dnf"
+			;;
+		xbps-install)
+			updates_void=$(xbps-install -Mun 2> /dev/null | wc -l)
+			echo "%{F#8B7} %{F-} UPDS: $updates_void"
+			;;
+	esac
+done

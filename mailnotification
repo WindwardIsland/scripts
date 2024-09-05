@@ -1,0 +1,48 @@
+#!/bin/sh
+
+# This section exports environment variables so that we can actually display the notification:
+export DISPLAY=:0
+export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus"
+export NOTMUCH_CONFIG="/home/windward/.config/notmuch/config"
+
+# This section removes emails that have been deleted from the inbox:
+echo "Removing emails deleted from inbox"
+notmuch new --no-hooks
+notmuch search --output=files --format=text folder:/Inbox/ -tag:inbox | grep Inbox | xargs --no-run-if-empty rm
+
+# This section downloads mail using 'mbsync' and then generates a new database using the local mail using 'notmuch new':
+mbsync -c /home/windward/.config/mutt/mbsyncrc gmail
+notmuch new
+
+# This section adds all the necessary tags in order to do a search for the newest unread email, and also removes the 'new' tags from new mail in an inbox folder if already read:
+echo "Tagging new unread inboxed mail"
+notmuch tag +unread -- tag:new
+notmuch tag +new -- tag:unread
+notmuch tag +inbox -- folder:/Inbox/ and tag:new
+notmuch tag -new not tag:unread
+
+# The final section of the script, which actually displays the notification by adding the
+# 'notify' tag to any unread new emails in an inbox, and then removing it afterwards, along
+# with the 'new' and 'unread' tags in order to avoid duplicate emails:
+notmuch tag +notify -- tag:new and tag:unread
+search="tag:notify"
+email_tags="$(notmuch search tag:new | head -n1 | grep -owE "\(.+\)" | tr -d '()')"
+notify_count=$(notmuch count "$search")
+
+if [ "$notify_count" -gt 0 ]; then
+	retrieve_emails () {
+		notmuch search --format=json --output=summary --limit=1 --sort="newest-first" "$search" | jq -r '.[] | "\(.authors): \(.subject)"'
+	}
+	if grep -q "replied" < "${email_tags}"; then
+		reply="Re: "
+	else
+		reply=""
+	fi
+	sender="$(retrieve_emails | awk -F ': ' '{print $1}')"
+	subject="$(retrieve_emails | awk -v reply="${reply}" -F ': ' '{print reply $2}')"
+
+	dunstify "$sender" "$subject" -u low -t 6000 --icon "/home/windward/.config/dunst/icons/email.png"
+fi
+
+notmuch tag -notify -- tag:new and tag:unread
+notmuch tag -new -unread -- tag:inbox
