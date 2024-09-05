@@ -10,6 +10,6 @@ Using dash instead of bash is better to run scripts, because as stated earlier, 
 
 Please also note that I have wrote these scripts on a Linux system, hence they are most likely to run successfully on one. I have not tested these scripts on alternative operating systems, such as macOS and the BSD family, so you are more than welcome to take these scripts and modify them to run successfully on those operating systems.
 
-You should also run these scripts at your own risk! I am not responsible for any damage to your computer caused by running these scripts, so please be familiar with shell scripting before running these in order to understand what they actually do.
+**You should also run these scripts at your own risk!** I am not responsible for any damage to your computer caused by running these scripts, so please be familiar with shell scripting before running these in order to understand what they actually do.
 
 **NOTE**: I am planning to add a full description list at the bottom of every script in this repository soon, so please be patient!
