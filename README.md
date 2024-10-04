@@ -12,4 +12,4 @@ Please also note that I have wrote these scripts on a Linux system, hence they a
 
 **You should also run these scripts at your own risk!** I am not responsible for any damage to your computer caused by running these scripts, so please be familiar with shell scripting before running these in order to understand what they actually do.
 
-**NOTE**: I am planning to add a full description list at the bottom of every script in this repository soon, so please be patient!
+**NOTE**: I am planning to add a full description list of every script at the bottom of this README soon, so please be patient!
