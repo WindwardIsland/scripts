@@ -1,4 +1,7 @@
 #!/usr/bin/perl
+
+# Taken from: https://bbs.archlinux.org/viewtopic.php?id=54684
+
 use strict;
 use warnings;
 
