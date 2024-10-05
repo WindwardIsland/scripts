@@ -4,6 +4,6 @@
 
 current_wid=$(xdo id)
 selection=$(dmenu -x 6 -y 5 -z 1908 -h 44 -l 10 -p "Select a Spanish character:" "$@" < ~/.scripts/dmenu/spanish.txt)
-kaomoji=$(echo "${selection}" | cut -d " " -f1)
-echo -n "${kaomoji}" | xclip -selection clipboard
+spanish=$(echo "${selection}" | cut -d " " -f1)
+echo -n "${spanish}" | xclip -selection clipboard
 xdotool key --window "${current_wid}" --clearmodifiers ctrl+v
