@@ -4,6 +4,6 @@
 
 current_wid=$(xdo id)
 selection=$(dmenu -x 6 -y 5 -z 1908 -h 44 -l 10 -p "Select a kaomoji:" "$@" < ~/.scripts/dmenu/kaomoji.txt)
-kaomoji=$(echo "${selection}" | sed -e "s|$(printf "\ufeff").*||" -e 's/[a-zA-Z]//g')
+kaomoji=$(echo "${selection}" | sed "s|$(printf "\ufeff").*||" | cut -d " " -f1)
 echo -n "${kaomoji}" | xclip -selection clipboard
 xdotool key --window "${current_wid}" --clearmodifiers ctrl+v
