@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+# Taken and modified from: https://www.youtube.com/watch?v=wp3LfWwCrZE
+
+# Script to clean pacman and paru (or your favorite AUR helper) cache
+# Based on scripts from albertoed11 and luukvbaal
+# https://gist.github.com/albertored11/bfc0068f4e43ca0d7ce0af968f7314db
+# https://gist.github.com/luukvbaal/2c697b5e068471ee989bff8a56507142
+
+# The location of the cache for your AUR helper
+AUR_CACHE_DIR="${HOME}/.cache/paru/clone"
+
+# Get all cache directories for your AUR helper
+AUR_CACHE_REMOVED=$(find "${AUR_CACHE_DIR}" -maxdepth 1 -type d | awk '{print "-c " $1}' | tail -n +2)
+
+# Remove everything for uninstalled AUR packages
+readarray -t AUR_REMOVED < <(paccache -ruvk0 ${AUR_CACHE_REMOVED} | sed '/\.cache/!d' | cut -d \' -f2 | rev | cut -d / -f2- | rev)
+
+for AUR_DIR in "${AUR_REMOVED[@]}"; do
+	[ -z "${AUR_DIR}" ] || rm -rf ${AUR_DIR}
+done
+
+# Keep latest version for uninstalled native packages, and keep the two latest versions for installed native and AUR packages
+# Get all cache directories for AUR helper (without removed packages)
+AUR_CACHE=$(find "${AUR_CACHE_DIR}" -maxdepth 1 -type d | awk '{print "-c " $1}' | tail -n +2)
+paccache -qruk0
+paccache -qrk2 -c /var/cache/pacman/pkg ${AUR_CACHE}

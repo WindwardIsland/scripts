@@ -1,7 +1,6 @@
 #!/bin/sh
 
 # This is a script for a polybar module which displays the number of updates with the distro logo based on the distribution.
-
 for pkg_mgr in apt pacman dnf xbps-install; do
 	command -v "${pkg_mgr}" > /dev/null 2>&1 || continue
 
