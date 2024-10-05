@@ -1,0 +1,16 @@
+á lowercase "a" with accent
+é lowercase "e" with accent
+í lowercase "i" with accent
+ó lowercase "o" with accent
+ú lowercase "u" with accent
+Á uppercase "a" with accent
+É uppercase "e" with accent
+Í uppercase "i" with accent
+Ó uppercase "o" with accent
+Ú uppercase "u" with accent
+ñ lowercase "n" with tilde
+Ñ uppercase "n" with tilde
+ü lowercase German "u"
+Ü uppercase German "u"
+¿ upside down question mark
+¡ upside down exclamation mark
