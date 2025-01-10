@@ -94,7 +94,7 @@ main() {
         # shellcheck disable=SC2086,SC2154
 		file_name=$(echo "" > /dev/null | dmenu -x 6 -y 5 -z 1908 -h 44 -p 'Specify file name:') || exit 1
         maim ${_maim_args} "${maim_dir}/${file_name}-${_file_type}.png"
-        notify-send "Saved Screenshot" "${maim_dir}/${maim_file_prefix}-${_file_type}-$(get_timestamp).png"
+        notify-send "Saved Screenshot" "${maim_dir}/${file_name}-${_file_type}.png"
         ;;
     'Clipboard')
         # shellcheck disable=SC2086
@@ -105,7 +105,7 @@ main() {
         # shellcheck disable=SC2086
 		file_name=$(echo "" > /dev/null | dmenu -x 6 -y 5 -z 1908 -h 44 -p 'Specify file name:') || exit 1
         maim ${_maim_args} | tee "${maim_dir}/${file_name}-${_file_type}.png" | cp2cb-maim
-        notify-send "Saved Screenshot" "${maim_dir}/${maim_file_prefix}-${_file_type}-$(get_timestamp).png And Clipboard"
+        notify-send "Saved Screenshot" "${maim_dir}/${file_name}-${_file_type}.png And Clipboard"
         ;;
     *)
         exit 1
