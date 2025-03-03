@@ -28,7 +28,7 @@ down)
 mute)
 	wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 	if [ "$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -oE "[A-U]+")" = "MUTED" ]; then
-		dunstify -a "changevolume" -t 2000 -r 9993 -u low -i "${XDG_CONFIG_HOME}/dunst/icons/volume-mute.png" "Volume Muted"
+		notify-send -a "changevolume" -t 2000 -r 9993 -u low -i "${XDG_CONFIG_HOME}/dunst/icons/volume-mute.png" "Volume Muted"
 	else
 		send_notification up
 	fi
