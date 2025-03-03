@@ -41,7 +41,7 @@ if [ "$notify_count" -gt 0 ]; then
 	sender="$(retrieve_emails | awk -F ': ' '{print $1}')"
 	subject="$(retrieve_emails | awk -v reply="${reply}" -F ': ' '{print reply $2}')"
 
-	dunstify "$sender" "$subject" -u low -t 6000 --icon "/home/windward/.config/dunst/icons/email.png"
+	notify-send "$sender" "$subject" -u low -t 6000 --icon "/home/windward/.config/dunst/icons/email.png"
 fi
 
 notmuch tag -notify -- tag:new and tag:unread

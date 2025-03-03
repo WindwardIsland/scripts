@@ -6,7 +6,7 @@
 
 send_notification() {
 	brightness=$(brightnessctl i | grep -oE "[0-9]+%" | sed 's/%//')
-	dunstify -a "changebrightness" \
+	notify-send -a "changebrightness" \
 		-u low \
 		-r 9991 \
 		-h int:value:"$brightness" \

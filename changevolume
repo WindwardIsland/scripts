@@ -6,7 +6,7 @@
 
 send_notification() {
 	volume=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | tr -dc "0-9" | sed 's/^0\{1,2\}//')
-	dunstify -a "changevolume" \
+	notify-send -a "changevolume" \
 		-u low \
 		-r 9993 \
 		-h int:value:"$volume" \

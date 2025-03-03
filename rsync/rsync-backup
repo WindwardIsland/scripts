@@ -5,10 +5,10 @@
 uuid="9d1cd927-72bb-4751-8c08-08eb57608571"
 date=$(date +%Y.%m.%d-%H.%M.%S)
 budir="/run/media/${USER}/${uuid}/"
-exclude_file="${HOME}/.scripts/rsync-exclude"
+exclude_file="${HOME}/.scripts/rsync/rsync-exclude"
 
 sudo mkdir "${budir}"/"${date}"
 
-dunstify -u critical -i "${XDG_CONFIG_HOME}"/dunst/icons/backup-icon.png "Backup running"
+notify-send -u critical -i "${XDG_CONFIG_HOME}"/dunst/icons/backup-icon.png "Backup running"
 
 sudo rsync -rptgoDKE --safe-links --progress --exclude-from ${exclude_file} /home/"$USER" "$budir"/"$date"
